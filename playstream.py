@@ -72,12 +72,13 @@ def read_arguments():
 
     arg_list = parser.parse_args()
 
-    if not re.search(r"^[a-f0-9]{40}$", arg_list.ace_stream_pid):
-        exit_error(f"invalid stream program ID of [{arg_list.ace_stream_pid}] given")
+    ace_stream_pid = arg_list.ace_stream_pid.removeprefix("acestream://")
+    if not re.search(r"^[a-f0-9]{40}$", ace_stream_pid):
+        exit_error(f"invalid stream program ID of [{ace_stream_pid}] given")
 
     # return arguments
     return (
-        arg_list.ace_stream_pid,
+        ace_stream_pid,
         arg_list.player,
         arg_list.progress,
         arg_list.server,
