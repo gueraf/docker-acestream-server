@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 DIRNAME=$(dirname "$0")
-DOCKER_REPOSITORY="magnetikonline/acestream-server"
+DOCKER_REPOSITORY="gueraf/acestream-server"
 SERVER_HTTP_PORT="6878"
 
 
