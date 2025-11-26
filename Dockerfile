@@ -21,12 +21,19 @@ RUN DEBIAN_FRONTEND="noninteractive" \
 	pip3 install apsw M2Crypto && \
 	# clean up
 	apt-get clean && \
-	rm --force --recursive /var/lib/apt/lists
+	rm -rf /var/lib/apt/lists/*
 
 RUN \
 	# install server
-	curl --silent "https://download.acestream.media/linux/acestream_${ACE_STREAM_VERSION}.tar.gz" | \
-		tar --extract --gzip
+	curl --silent --location "https://download.acestream.media/linux/acestream_${ACE_STREAM_VERSION}.tar.gz" -o /tmp/acestream.tar.gz && \
+	mkdir -p /opt/acestream && \
+	tar -xzf /tmp/acestream.tar.gz -C /opt/acestream --strip-components=1 && \
+	rm /tmp/acestream.tar.gz
+
+RUN \
+	echo '#!/bin/bash' > /start-engine && \
+	echo 'exec /opt/acestream/acestreamengine/CoreApp.so "$@"' >> /start-engine && \
+	chmod +x /start-engine
 
 EXPOSE 6878/tcp
 
