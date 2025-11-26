@@ -24,7 +24,7 @@ RUN DEBIAN_FRONTEND="noninteractive" \
 
 RUN \
 	# install server
-	curl --silent "https://download.acestream.media/linux/acestream_${ACE_STREAM_VERSION}_x86_64.tar.gz" | \
+	curl --silent "https://download.acestream.media/linux/acestream_${ACE_STREAM_VERSION}.tar.gz" | \
 		tar --extract --gzip
 
 EXPOSE 6878/tcp
